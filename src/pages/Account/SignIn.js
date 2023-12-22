@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { BsCheckCircleFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import { logoLight } from "../../assets/images";
+import { IoReturnUpBack } from "react-icons/io5";
 
 const SignIn = () => {
   // ============= Initial State Start here =============
@@ -44,11 +45,11 @@ const SignIn = () => {
     }
   };
   return (
-    <div className="w-full h-screen flex items-center justify-center">
+    <div className="w-full h-screen overflow-hidden flex items-center justify-center">
       <div className="w-1/2 hidden lgl:inline-flex h-full text-white">
         <div className="w-[450px] h-full bg-primeColor px-10 flex flex-col gap-6 justify-center">
-          <Link to="/">
-            <img src={logoLight} alt="logoImg" className="w-28" />
+          <Link to="/" className="font-semibold text-[25px]">
+            shop<span className="font-normal opacity-75">cart</span>
           </Link>
           <div className="flex flex-col gap-1 -mt-1">
             <h1 className="font-titleFont text-xl font-medium">
@@ -62,7 +63,7 @@ const SignIn = () => {
             </span>
             <p className="text-base text-gray-300">
               <span className="text-white font-semibold font-titleFont">
-                Get started fast with OREBI
+                Get started fast with SHOPCART
               </span>
               <br />
               Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ab omnis
@@ -75,7 +76,7 @@ const SignIn = () => {
             </span>
             <p className="text-base text-gray-300">
               <span className="text-white font-semibold font-titleFont">
-                Access all OREBI services
+                Access all SHOPCART services
               </span>
               <br />
               Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ab omnis
@@ -98,7 +99,7 @@ const SignIn = () => {
           <div className="flex items-center justify-between mt-10">
             <Link to="/">
               <p className="text-sm font-titleFont font-semibold text-gray-300 hover:text-white cursor-pointer duration-300">
-                © OREBI
+                © SHOPCART
               </p>
             </Link>
             <p className="text-sm font-titleFont font-semibold text-gray-300 hover:text-white cursor-pointer duration-300">
@@ -114,6 +115,7 @@ const SignIn = () => {
         </div>
       </div>
       <div className="w-full lgl:w-1/2 h-full">
+      <Link to="/" className="mt-5 relative px-[20px] flex text-[18px] w-fit text-primeColor font-medium hover:text-black duration-150"><IoReturnUpBack size={25} className="absolute right-[15px] top-[-7px]" /> <span className="z-[10]  leading-1 rounded-lg">Go Home</span></Link>
         {successMsg ? (
           <div className="w-full lgl:w-[500px] h-full flex flex-col justify-center">
             <p className="w-full px-4 py-10 text-green-500 font-medium font-titleFont">

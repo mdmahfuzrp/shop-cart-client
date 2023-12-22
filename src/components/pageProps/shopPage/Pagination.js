@@ -20,6 +20,7 @@ function Items({ currentItems }) {
               colors={item.colors}
               badge={item.badge}
               des={item.des}
+              sizes={item.sizes}
             />
           </div>
         ))}

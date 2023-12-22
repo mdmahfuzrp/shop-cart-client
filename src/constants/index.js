@@ -79,11 +79,17 @@ export const paginationItems = [
     productName: "Cap for Boys",
     price: "35.00",
     colors: [
-      "#00000",
-      "ff0000",
-      "22D3EF"
+      "#000",
+      "#ff0000",
+      "#22D3EF"
     ],
     badge: true,
+    sizes: [
+      "M",
+      "L",
+      "XL",
+      "XXL",
+    ],
     des: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic excepturi quibusdam odio deleniti reprehenderit facilis.",
   },
 ];
