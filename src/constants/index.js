@@ -1,9 +1,6 @@
-import {
-  spfOne,
-  spfThree,
-  spfFour,
-  newArrFour,
-} from "../assets/images/index";
+import axios from "axios";
+import { spfOne, spfThree, spfFour, newArrFour } from "../assets/images/index";
+
 
 // =================== NavBarList Start here ====================
 export const navBarList = [
@@ -72,25 +69,5 @@ export const SplOfferData = [
 
 // =================== PaginationItems Start here ===============
 
-export const paginationItems = [
-  {
-    _id: 1001,
-    img: spfOne,
-    productName: "Cap for Boys",
-    price: "35.00",
-    colors: [
-      "#000",
-      "#ff0000",
-      "#22D3EF"
-    ],
-    badge: true,
-    sizes: [
-      "M",
-      "L",
-      "XL",
-      "XXL",
-    ],
-    des: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic excepturi quibusdam odio deleniti reprehenderit facilis.",
-  },
-];
+export var paginationItems = [];
 // =================== PaginationItems End here =================

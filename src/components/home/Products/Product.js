@@ -8,6 +8,8 @@ import { useDispatch } from "react-redux";
 import { addToCart } from "../../../redux/orebiSlice";
 
 const Product = (props) => {
+  console.log(props);
+  console.log(props.img);
   const dispatch = useDispatch();
   const _id = props.productName;
   const idString = (_id) => {
@@ -28,7 +30,7 @@ const Product = (props) => {
     <div className="w-full relative group">
       <div className="max-w-80 max-h-80 relative overflow-y-hidden ">
         <div>
-          <Image className="w-full h-full" imgSrc={props.img} />
+          <img className="w-full h-full" src={props.img} alt="a" />
         </div>
         <div className="absolute top-6 left-8">
           {props.badge && <Badge text="New" />}
@@ -77,7 +79,7 @@ const Product = (props) => {
           <p className="text-[#767676] text-[14px]">${props.price}</p>
         </div>
         <div>
-          <p className="text-[#767676] text-[14px]">{props.color}</p>
+          <p className="text-[#767676] text-[14px]"></p>
         </div>
       </div>
     </div>

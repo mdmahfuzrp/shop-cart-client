@@ -1,10 +1,7 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import ReactPaginate from "react-paginate";
 import Product from "../../home/Products/Product";
-import { paginationItems } from "../../../constants";
-
-const items = paginationItems;
-// product body
+import { AuthContext } from "../../../Provider/AuthProvider";
 
 function Items({ currentItems }) {
   return (
@@ -29,33 +26,31 @@ function Items({ currentItems }) {
 }
 
 const Pagination = ({ itemsPerPage }) => {
-  // Here we use item offsets; we could also use page offsets
-  // following the API or data you're working with.
+  // Always use Hooks at the top level
   const [itemOffset, setItemOffset] = useState(0);
   const [itemStart, setItemStart] = useState(1);
+  const { allProduct } = useContext(AuthContext);
 
-  // Simulate fetching items from another resources.
-  // (This could be items from props; or items loaded in a local state
-  // from an API endpoint with useEffect and useState)
+  // Check for allProduct existence and array type
+  if (!allProduct || !Array.isArray(allProduct)) {
+    console.error("No product data found or invalid data format.");
+    return null; // Or handle this case according to your app logic
+  }
+
   const endOffset = itemOffset + itemsPerPage;
-  //   console.log(`Loading items from ${itemOffset} to ${endOffset}`);
-  const currentItems = items.slice(itemOffset, endOffset);
-  console.log(currentItems);
-  const pageCount = Math.ceil(items.length / itemsPerPage);
+  const currentItems = allProduct.slice(itemOffset, endOffset);
+  const pageCount = Math.ceil(allProduct.length / itemsPerPage);
 
-  // Invoke when user click to request another page.
   const handlePageClick = (event) => {
-    const newOffset = (event.selected * itemsPerPage) % items.length;
+    const newOffset = (event.selected * itemsPerPage) % allProduct.length;
     setItemOffset(newOffset);
-    // console.log(
-    //   `User requested page number ${event.selected}, which is offset ${newOffset},`
-    // );
     setItemStart(newOffset);
   };
 
   return (
     <div>
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-10 mdl:gap-4 lg:gap-10">
+        {/* Assuming Items is a component to render currentItems */}
         <Items currentItems={currentItems} />
       </div>
       <div className="flex flex-col mdl:flex-row justify-center mdl:justify-between items-center">
@@ -74,7 +69,7 @@ const Pagination = ({ itemsPerPage }) => {
 
         <p className="text-base font-normal text-lightText">
           Products from {itemStart === 0 ? 1 : itemStart} to {endOffset} of{" "}
-          {items.length}
+          {allProduct.length}
         </p>
       </div>
     </div>

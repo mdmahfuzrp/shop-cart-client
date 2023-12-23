@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import Slider from "react-slick";
 import Heading from "../Products/Heading";
 import Product from "../Products/Product";
@@ -10,8 +10,10 @@ import {
 } from "../../../assets/images/index";
 import SampleNextArrow from "./SampleNextArrow";
 import SamplePrevArrow from "./SamplePrevArrow";
+import { AuthContext } from "../../../Provider/AuthProvider";
 
 const NewArrivals = () => {
+  const { allProduct } = useContext(AuthContext);
   const settings = {
     infinite: true,
     speed: 500,
@@ -50,17 +52,34 @@ const NewArrivals = () => {
     <div className="w-full pb-16">
       <Heading heading="New Arrivals" />
       <Slider {...settings}>
-        <div className="px-2">
-          <Product
-            _id="100001"
-            img={newArrOne}
-            productName="Round Table Clock"
-            price="44.00"
-            color="Black"
-            badge={true}
-            des="Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic excepturi quibusdam odio deleniti reprehenderit facilis."
-          />
-        </div>
+        {allProduct.map((product, index) => (
+          <div className="px-2" key={product._id}>
+            <Product
+              _id={product._id}
+              img={product.img}
+              productName={product.productName}
+              price={product.price}
+              colors={product.colors}
+              badge={product.badge}
+              des={product.des}
+              sizes={product.sizes}
+            />
+          </div>
+        ))}
+        {allProduct.map((product, index) => (
+          <div className="px-2" key={product._id}>
+            <Product
+              _id={product._id}
+              img={product.img}
+              productName={product.productName}
+              price={product.price}
+              colors={product.colors}
+              badge={product.badge}
+              des={product.des}
+              sizes={product.sizes}
+            />
+          </div>
+        ))}
       </Slider>
     </div>
   );

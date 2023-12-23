@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { MdClose } from "react-icons/md";
 import { HiMenuAlt2 } from "react-icons/hi";
@@ -9,8 +9,10 @@ import { navBarList } from "../../../constants";
 import Flex from "../../designLayouts/Flex";
 import { FaCaretDown, FaShoppingCart, FaUser } from "react-icons/fa";
 import { useSelector } from "react-redux";
+import { AuthContext } from "../../../Provider/AuthProvider";
 
 const Header = () => {
+  const { token } = useContext(AuthContext);
   const products = useSelector((state) => state.orebiReducer.products);
   const [showMenu, setShowMenu] = useState(true);
   const [sidenav, setSidenav] = useState(false);
@@ -71,18 +73,28 @@ const Header = () => {
                         initial={{ y: 30, opacity: 0 }}
                         animate={{ y: 0, opacity: 1 }}
                         transition={{ duration: 0.5 }}
-                        className="absolute top-6 right-[50px] rounded-md z-50 bg-primeColor w-44 text-[#767676] h-auto p-4 pb-6"
+                        className="absolute top-6 right-[50px] cursor-default rounded-md z-50 bg-primeColor w-44 text-[#767676] h-auto p-4 pb-6"
                       >
-                        <Link to="/signin">
-                          <li className="text-[#d6d5d5] px-4 py-1 border-b-[1px] border-b-[#fff]  hover:text-white duration-300 cursor-pointer">
-                            Login
-                          </li>
-                        </Link>
-                        <Link to="/signin">
-                          <li className="text-[#d6d5d5] px-4 py-1 hover:text-white duration-300 cursor-pointer">
-                            Registration
-                          </li>
-                        </Link>
+                        {token ? (
+                          <Link to="/profile">
+                            <li className="text-[#d6d5d5] px-4 mt-2 hover:text-white duration-300 cursor-pointer">
+                              Profile
+                            </li>
+                          </Link>
+                        ) : (
+                          <>
+                            <Link to="/signin">
+                              <li className="text-[#d6d5d5] px-4 py-1 border-b-[1px] border-b-[#fff]  hover:text-white duration-300 cursor-pointer">
+                                Login
+                              </li>
+                            </Link>
+                            <Link to="/signin">
+                              <li className="text-[#d6d5d5] px-4 py-1 hover:text-white duration-300 cursor-pointer">
+                                Registration
+                              </li>
+                            </Link>
+                          </>
+                        )}
                       </motion.ul>
                     )}
 
@@ -147,22 +159,36 @@ const Header = () => {
                             initial={{ y: 30, opacity: 0 }}
                             animate={{ y: 0, opacity: 1 }}
                             transition={{ duration: 0.5 }}
-                            className="absolute top-6 left-0 z-50 rounded-md bg-lightText w-44 h-auto p-4 pb-6"
+                            className="absolute top-6 left-0 z-50 rounded-md bg-black w-44 h-auto p-4 pb-6"
                           >
-                            <Link to="/signin" onClick={() => setSidenav(false)}>
-                              <li className="text-gray-400 px-4 py-1 border-b-[1px] border-b-gray-400 hover:border-b-white hover:text-white duration-300 cursor-pointer">
-                                Login
-                              </li>
-                            </Link>
-                            <Link to="/signin" onClick={() => setSidenav(false)}>
-                              <li className="text-gray-400 px-4 py-1 border-b-gray-400 hover:border-b-white hover:text-white duration-300 cursor-pointer">
-                                Registration
-                              </li>
-                            </Link>
+                            {token ? (
+                              <Link to="/profile">
+                                <li className="text-[#d6d5d5] px-4 mt-2 hover:text-white duration-300 cursor-pointer">
+                                  Profile
+                                </li>
+                              </Link>
+                            ) : (
+                              <>
+                                <Link to="/signin">
+                                  <li className="text-[#d6d5d5] px-4 py-1 border-b-[1px] border-b-[#fff]  hover:text-white duration-300 cursor-pointer">
+                                    Login
+                                  </li>
+                                </Link>
+                                <Link to="/signin">
+                                  <li className="text-[#d6d5d5] px-4 py-1 hover:text-white duration-300 cursor-pointer">
+                                    Registration
+                                  </li>
+                                </Link>
+                              </>
+                            )}
                           </motion.ul>
                         )}
 
-                        <Link to="/cart" className="mt-[3px]" onClick={() => setSidenav(false)}>
+                        <Link
+                          to="/cart"
+                          className="mt-[3px]"
+                          onClick={() => setSidenav(false)}
+                        >
                           <div className="relative">
                             <FaShoppingCart />
                             <span className="absolute font-titleFont top-[-10px] left-2 text-xs w-4 h-4 flex items-center justify-center rounded-full bg-lightText text-white">
