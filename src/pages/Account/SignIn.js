@@ -3,9 +3,11 @@ import { BsCheckCircleFill } from "react-icons/bs";
 import { Link, useNavigate } from "react-router-dom";
 import { IoReturnUpBack } from "react-icons/io5";
 import axios from "axios";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const SignIn = () => {
   const navigate = useNavigate();
+  const [showPass, setShowPass] = useState(false);
   // ============= Initial State Start here =============
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -162,15 +164,15 @@ const SignIn = () => {
               </div>
 
               {/* Password */}
-              <div className="flex flex-col gap-.5">
+              <div className="flex relative flex-col gap-.5">
                 <p className="font-titleFont text-base font-semibold text-gray-600">
                   Password
                 </p>
                 <input
                   onChange={handlePassword}
                   value={password}
-                  className="w-full h-8 placeholder:text-sm placeholder:tracking-wide px-4 text-base font-medium placeholder:font-normal rounded-md border-[1px] border-gray-400 outline-none"
-                  type="password"
+                  className="w-full h-8 pr-7 placeholder:text-sm placeholder:tracking-wide px-4 text-base font-medium placeholder:font-normal rounded-md border-[1px] border-gray-400 outline-none"
+                  type={showPass ? 'text' : 'password'}
                   placeholder="Create password"
                 />
                 {errPassword && (
@@ -179,6 +181,13 @@ const SignIn = () => {
                     {errPassword}
                   </p>
                 )}
+                {
+                  showPass ? (
+                    <span onClick={()=>setShowPass(!showPass)} className={`absolute right-3 cursor-pointer  hover:text-primeColor hover:opacity-100 duration-100 top-[32px] ${showPass ? ' text-primeColor' : 'opacity-50'}`}><FaEyeSlash /></span>
+                  ) : (
+                    <span onClick={()=>setShowPass(!showPass)} className={`absolute right-3 cursor-pointer  hover:text-primeColor hover:opacity-100 duration-100 top-[32px] ${showPass ? ' text-primeColor' : 'opacity-50'}`}><FaEye /></span>
+                  )
+                }
               </div>
 
               <button

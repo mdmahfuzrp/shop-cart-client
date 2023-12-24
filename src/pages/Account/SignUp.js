@@ -5,8 +5,10 @@ import { IoReturnUpBack } from "react-icons/io5";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
 import {TiArrowForward } from 'react-icons/ti'
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const SignUp = () => {
+  const [showPass, setShowPass] = useState(false);
   // Loading
   const [loading, setLoading] = useState(false);
   // ============= Initial State Start here =============
@@ -215,6 +217,7 @@ const SignUp = () => {
                     {errEmail}
                   </p>
                 )}
+                
               </div>
               {/* Phone Number */}
               <div className="flex flex-col gap-.5">
@@ -236,15 +239,15 @@ const SignUp = () => {
                 )}
               </div>
               {/* Password */}
-              <div className="flex flex-col gap-.5">
+              <div className="flex relative flex-col gap-.5">
                 <p className="font-titleFont text-base font-semibold text-gray-600">
                   Password
                 </p>
                 <input
                   onChange={handlePassword}
                   value={password}
-                  className="w-full h-8 placeholder:text-sm placeholder:tracking-wide px-4 text-base font-medium placeholder:font-normal rounded-md border-[1px] border-gray-400 outline-none"
-                  type="password"
+                  className="w-full pr-7 h-8 placeholder:text-sm placeholder:tracking-wide px-4 text-base font-medium placeholder:font-normal rounded-md border-[1px] border-gray-400 outline-none"
+                  type={showPass ? 'text' : 'password'}
                   placeholder="Create password"
                 />
                 {errPassword && (
@@ -253,6 +256,13 @@ const SignUp = () => {
                     {errPassword}
                   </p>
                 )}
+                {
+                  showPass ? (
+                    <span onClick={()=>setShowPass(!showPass)} className={`absolute right-3 cursor-pointer  hover:text-primeColor hover:opacity-100 duration-100 top-[32px] ${showPass ? ' text-primeColor' : 'opacity-50'}`}><FaEyeSlash /></span>
+                  ) : (
+                    <span onClick={()=>setShowPass(!showPass)} className={`absolute right-3 cursor-pointer  hover:text-primeColor hover:opacity-100 duration-100 top-[32px] ${showPass ? ' text-primeColor' : 'opacity-50'}`}><FaEye /></span>
+                  )
+                }
               </div>
               {/* Address */}
               <div className="flex flex-col gap-.5">
