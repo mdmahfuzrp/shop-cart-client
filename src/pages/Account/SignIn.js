@@ -49,7 +49,7 @@ const SignIn = () => {
       setLoading(false);
       localStorage.setItem("shopCartUserData", JSON.stringify(res.data));
       localStorage.setItem("shopCartUserToken", res.token);
-      window.location.href = "/";
+      window.location.href = "/profile";
     } catch (error) {
       console.log(error.response);
       setErrorMsg(error?.response?.data?.message);

@@ -109,7 +109,7 @@ const HeaderBottom = () => {
             {token ? (
               <Link
                 to="/profile"
-                className="text-[16px] hover:shadow-lg font-medium bg-primeColor text-white py-1 rounded-[20px] px-3 flex items-center gap-1"
+                className="text-[16px] capitalize hover:shadow-lg font-medium bg-primeColor text-white py-1 rounded-[20px] px-3 flex items-center gap-1"
               >
                 <FaUser size={14} /> {user?.fullName}
               </Link>
