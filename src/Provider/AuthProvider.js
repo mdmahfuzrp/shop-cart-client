@@ -1,6 +1,7 @@
 import axios from "axios";
 import { createContext, useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import { useQuery } from "react-query";
 
 export const AuthContext = createContext(null);
 const AuthProvider = ({ children }) => {
@@ -8,8 +9,6 @@ const AuthProvider = ({ children }) => {
   const user = JSON.parse(localStorage.getItem("shopCartUserData"));
   // console.log('id:::', user._id);
   const token = localStorage.getItem("shopCartUserToken");
-
-  const [cartItems, setCartItems] = useState([]);
   const [allProduct, setAllProduct] = useState([]);
 
   // Get All Product
@@ -26,21 +25,34 @@ const AuthProvider = ({ children }) => {
   };
 
   // Get User Cart Items
-  const userCartItems = async () => {
-    if (user) {
-      const apiUrl = `http://localhost:5000/api/user/${user._id}/cart-items`;
+  const { data: respondData = {}, isLoading, isError, error } = useQuery(
+    ["/api/user/:userId/cart-items"],
+    async () => {
       try {
-        const response = await axios.get(apiUrl);
-        setCartItems(response?.data?.cartItems);
+        const res = await fetch(
+          `http://localhost:5000/api/user/${user._id}/cart-items`
+        );
+        console.log(res);
+        if (!res.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return res.json();
       } catch (error) {
-        console.error("Failed to fetch user cart items:", error);
+        console.log(error);
+        throw new Error('Error fetching data');
       }
+    },
+    {
+      refetchInterval: 1000,
+      refetchOnMount: true,
     }
-  };
+  );
+
+  const cartItems = respondData.cartItems || [];
   
-  useEffect(() => {
-    getProductData();
-  }, []);
+  if (isError) {
+    console.error('Error fetching data:', error);
+  }
 
   // Logout Function
   function logout() {
@@ -49,7 +61,9 @@ const AuthProvider = ({ children }) => {
     window.location.href = "/";
   }
 
-
+  useEffect(() => {
+    getProductData();
+  }, []);
 
   const userInfo = {
     user,

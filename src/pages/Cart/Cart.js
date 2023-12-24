@@ -10,6 +10,7 @@ import { AuthContext } from "../../Provider/AuthProvider";
 
 const Cart = () => {
   const { cartItems } = useContext(AuthContext);
+  console.log(cartItems);
   const dispatch = useDispatch();
   const [totalAmt, setTotalAmt] = useState("");
   const [shippingCharge, setShippingCharge] = useState("");

@@ -86,7 +86,7 @@ const Product = (props) => {
       }/>
       <div className="max-w-80 max-h-80 relative overflow-y-hidden ">
         <div>
-          <img className="w-full h-full" src={props.img} alt="a" />
+          <img className="w-full h-[300px] object-cover" src={props.img} alt="a" />
         </div>
         <div className="absolute top-6 left-8">
           {props.badge && <Badge text="New" />}

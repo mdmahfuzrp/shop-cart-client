@@ -68,7 +68,7 @@ const SignIn = () => {
             <p className="text-base">When you sign in, you are with us!</p>
           </div>
           <div className="w-[300px] flex items-start gap-3">
-            <span className="text-green-500 mt-1">
+            <span className="text-white mt-1">
               <BsCheckCircleFill />
             </span>
             <p className="text-base text-gray-300">
@@ -81,7 +81,7 @@ const SignIn = () => {
             </p>
           </div>
           <div className="w-[300px] flex items-start gap-3">
-            <span className="text-green-500 mt-1">
+            <span className="text-white mt-1">
               <BsCheckCircleFill />
             </span>
             <p className="text-base text-gray-300">
@@ -94,7 +94,7 @@ const SignIn = () => {
             </p>
           </div>
           <div className="w-[300px] flex items-start gap-3">
-            <span className="text-green-500 mt-1">
+            <span className="text-white mt-1">
               <BsCheckCircleFill />
             </span>
             <p className="text-base text-gray-300">

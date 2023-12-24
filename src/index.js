@@ -7,14 +7,18 @@ import { store, persistor } from "./redux/store";
 import "./index.css";
 import App from "./App";
 import AuthProvider from "./Provider/AuthProvider";
+import { QueryClient, QueryClientProvider } from "react-query";
 
+const queryClient = new QueryClient();
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <AuthProvider>
-    <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <App />
-      </PersistGate>
-    </Provider>
-  </AuthProvider>
+  <QueryClientProvider client={queryClient} contextSharing={true}>
+    <AuthProvider>
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+          <App />
+        </PersistGate>
+      </Provider>
+    </AuthProvider>
+  </QueryClientProvider>
 );
