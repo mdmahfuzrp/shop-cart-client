@@ -44,11 +44,10 @@ const SignIn = () => {
       const { data: res } = await axios.post(apiUrl, postData);
       console.log(res);
       setErrorMsg("");
-
-      navigate("/");
       setLoading(false);
       localStorage.setItem("shopCartUserData", JSON.stringify(res.data));
       localStorage.setItem("shopCartUserToken", res.token);
+      window.location.href = "/";
     } catch (error) {
       console.log(error.response);
       setErrorMsg(error?.response?.data?.message);

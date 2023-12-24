@@ -85,7 +85,12 @@ const SignUp = () => {
   };
   return (
     <div className="w-full h-screen flex items-center justify-start overflow-hidden">
-      <Toaster />
+      <Toaster toastOptions={{
+        style: {
+          boxShadow: '0 1px 0px #a5a1a161',
+          borderBottom: "0px",
+        }
+      }} />
       <div className="w-1/2 hidden lgl:inline-flex h-full text-white">
         <div className="w-[450px] h-full bg-primeColor px-10 flex flex-col gap-6 justify-center">
           <Link to="/" className="font-semibold text-[25px]">

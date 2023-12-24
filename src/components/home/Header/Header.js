@@ -10,16 +10,21 @@ import Flex from "../../designLayouts/Flex";
 import { FaCaretDown, FaShoppingCart, FaUser } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import { AuthContext } from "../../../Provider/AuthProvider";
+import toast, { Toaster } from "react-hot-toast";
 
 const Header = () => {
-  const { token } = useContext(AuthContext);
-  const products = useSelector((state) => state.orebiReducer.products);
+  const { token, logout, cartItems } = useContext(AuthContext);
   const [showMenu, setShowMenu] = useState(true);
   const [sidenav, setSidenav] = useState(false);
 
   const [showUser, setShowUser] = useState(false);
   const [brand, setBrand] = useState(false);
   const location = useLocation();
+
+  const handleLogOut = () => {
+    logout();
+  };
+
   useEffect(() => {
     let ResponsiveMenu = () => {
       if (window.innerWidth < 667) {
@@ -34,6 +39,12 @@ const Header = () => {
 
   return (
     <div className="w-full h-20 bg-white sticky top-0 z-50 border-b-[1px] border-b-gray-200">
+      <Toaster toastOptions={{
+        style: {
+          boxShadow: '0 1px 0px #a5a1a161',
+          borderBottom: "0px",
+        }
+      }} />
       <nav className="h-full px-4 max-w-container mx-auto relative">
         <Flex className="flex items-center justify-between h-full">
           <Link to="/">
@@ -76,11 +87,19 @@ const Header = () => {
                         className="absolute top-6 right-[50px] cursor-default rounded-md z-50 bg-primeColor w-44 text-[#767676] h-auto p-4 pb-6"
                       >
                         {token ? (
-                          <Link to="/profile">
-                            <li className="text-[#d6d5d5] px-4 mt-2 hover:text-white duration-300 cursor-pointer">
-                              Profile
+                          <>
+                            <Link to="/profile">
+                              <li className="text-[#d6d5d5] px-4 py-1 border-b-[1px] border-b-[#fff]  hover:text-white duration-300 cursor-pointer">
+                                Profile
+                              </li>
+                            </Link>
+                            <li
+                              onClick={handleLogOut}
+                              className="text-[#d6d5d5] px-4 py-1 hover:text-white duration-300 cursor-pointer"
+                            >
+                              Logout
                             </li>
-                          </Link>
+                          </>
                         ) : (
                           <>
                             <Link to="/signin">
@@ -88,7 +107,7 @@ const Header = () => {
                                 Login
                               </li>
                             </Link>
-                            <Link to="/signin">
+                            <Link to="/signup">
                               <li className="text-[#d6d5d5] px-4 py-1 hover:text-white duration-300 cursor-pointer">
                                 Registration
                               </li>
@@ -102,7 +121,7 @@ const Header = () => {
                       <div className="relative">
                         <FaShoppingCart className="text-primeColor" />
                         <span className="absolute font-titleFont top-[-10px] left-2 text-xs w-4 h-4 flex items-center justify-center rounded-full bg-primeColor text-white">
-                          {products.length > 0 ? products.length : 0}
+                          {cartItems.length > 0 ? cartItems.length : 0}
                         </span>
                       </div>
                     </Link>
@@ -162,11 +181,19 @@ const Header = () => {
                             className="absolute top-6 left-0 z-50 rounded-md bg-black w-44 h-auto p-4 pb-6"
                           >
                             {token ? (
-                              <Link to="/profile">
-                                <li className="text-[#d6d5d5] px-4 mt-2 hover:text-white duration-300 cursor-pointer">
-                                  Profile
+                              <>
+                                <Link to="/profile">
+                                  <li className="text-[#d6d5d5] px-4 py-1 border-b-[1px] border-b-[#fff]  hover:text-white duration-300 cursor-pointer">
+                                    Profile
+                                  </li>
+                                </Link>
+                                <li
+                                  onClick={handleLogOut}
+                                  className="text-[#d6d5d5] px-4 py-1 hover:text-white duration-300 cursor-pointer"
+                                >
+                                  Logout
                                 </li>
-                              </Link>
+                              </>
                             ) : (
                               <>
                                 <Link to="/signin">
@@ -174,7 +201,7 @@ const Header = () => {
                                     Login
                                   </li>
                                 </Link>
-                                <Link to="/signin">
+                                <Link to="/signup">
                                   <li className="text-[#d6d5d5] px-4 py-1 hover:text-white duration-300 cursor-pointer">
                                     Registration
                                   </li>
@@ -192,7 +219,7 @@ const Header = () => {
                           <div className="relative">
                             <FaShoppingCart />
                             <span className="absolute font-titleFont top-[-10px] left-2 text-xs w-4 h-4 flex items-center justify-center rounded-full bg-lightText text-white">
-                              {products.length > 0 ? products.length : 0}
+                              {cartItems.length > 0 ? cartItems.length : 0}
                             </span>
                           </div>
                         </Link>

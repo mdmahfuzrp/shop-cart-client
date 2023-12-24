@@ -1,30 +1,66 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../../redux/orebiSlice";
 import { FaCheck } from "react-icons/fa";
+import { AuthContext } from "../../../Provider/AuthProvider";
+import toast from "react-hot-toast";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const ProductInfo = ({ productInfo }) => {
+  const {token, user} = useContext(AuthContext);
   const dispatch = useDispatch();
-  const [activeColor, setActiveColor] = useState("No color available");
-  const [selectedSize, setSelectedSize] = useState("No Size Available");
+  const navigate = useNavigate();
+  const [activeColor, setActiveColor] = useState("#000000");
+  const [selectedSize, setSelectedSize] = useState("M");
 
   const handleChange = (event) => {
     setSelectedSize(event.target.value);
   };
 
   const handleAddToCart = () => {
-    dispatch(
-      addToCart({
-        _id: productInfo.id,
-        name: productInfo.productName,
+    if (token) {
+      const addToCartData = {
+        useremail: user.email,
+        productName: productInfo.productName,
         quantity: 1,
-        image: productInfo.img,
+        img: productInfo.img,
         badge: productInfo.badge,
         price: productInfo.price,
         color: activeColor,
         size: selectedSize,
-      })
-    );
+      };
+
+      console.log(addToCartData);
+
+      const apiUrl = "http://localhost:5000/api/add-to-cart";
+
+      axios
+        .post(apiUrl, addToCartData)
+        .then((response) => {
+          console.log(response);
+          toast.success(response.data.message);
+
+          dispatch(
+            addToCart({
+              _id: productInfo._id,
+              name: productInfo.productName,
+              quantity: 1,
+              img: productInfo.img,
+              badge: productInfo.badge,
+              price: productInfo.price,
+              color: productInfo.colors[0],
+              size: productInfo.sizes[0],
+            })
+          );
+        })
+        .catch((error) => {
+          console.error("Failed to add item to cart:", error);
+          toast.success(error.response.data.message);
+        });
+    } else {
+      navigate("/signin");
+    }
   };
 
   useEffect(() => {
@@ -33,8 +69,8 @@ const ProductInfo = ({ productInfo }) => {
       setActiveColor(productInfo.colors[0]);
     }
 
-    if(productInfo?.sizes?.length > 0){
-      setSelectedSize(productInfo.sizes[0])
+    if (productInfo?.sizes?.length > 0) {
+      setSelectedSize(productInfo.sizes[0]);
     }
   }, [productInfo]);
 
@@ -47,7 +83,9 @@ const ProductInfo = ({ productInfo }) => {
       <p className="text-sm">Be the first to leave a review.</p>
       <div className="flex items-center gap-7">
         <p className="font-medium text-lg flex items-center gap-4">
-          <span className="font-normal bg-primeColor text-white px-[6px] rounded-[4px]">Colors:</span>
+          <span className="font-normal bg-primeColor text-white px-[6px] rounded-[4px]">
+            Colors:
+          </span>
           <span className="flex items-center gap-[6px]">
             {productInfo?.colors?.length > 0 ? (
               productInfo?.colors.map((curColor, index) => {
@@ -74,7 +112,9 @@ const ProductInfo = ({ productInfo }) => {
           </span>
         </p>
         <p className="font-medium text-lg flex items-center gap-4">
-          <span className="font-normal bg-primeColor text-white px-[6px] rounded-[4px]">Size:</span>
+          <span className="font-normal bg-primeColor text-white px-[6px] rounded-[4px]">
+            Size:
+          </span>
           <select
             id="sizeSelect"
             value={selectedSize}
@@ -83,7 +123,11 @@ const ProductInfo = ({ productInfo }) => {
           >
             {productInfo?.sizes?.length > 0
               ? productInfo?.sizes.map((size) => (
-                  <option key={size} value={size} className="px-3 cursor-pointer">
+                  <option
+                    key={size}
+                    value={size}
+                    className="px-3 cursor-pointer"
+                  >
                     {size}
                   </option>
                 ))
