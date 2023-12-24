@@ -37,6 +37,10 @@ const AuthProvider = ({ children }) => {
       }
     }
   };
+  
+  useEffect(() => {
+    getProductData();
+  }, []);
 
   // Logout Function
   function logout() {
@@ -45,10 +49,7 @@ const AuthProvider = ({ children }) => {
     window.location.href = "/";
   }
 
-  useEffect(() => {
-    getProductData();
-    userCartItems();
-  }, []);
+
 
   const userInfo = {
     user,

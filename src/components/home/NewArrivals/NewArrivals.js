@@ -60,20 +60,6 @@ const NewArrivals = () => {
             />
           </div>
         ))}
-        {allProduct.map((product, index) => (
-          <div className="px-2" key={product._id}>
-            <Product
-              _id={product._id}
-              img={product.img}
-              productName={product.productName}
-              price={product.price}
-              colors={product.colors}
-              badge={product.badge}
-              des={product.des}
-              sizes={product.sizes}
-            />
-          </div>
-        ))}
       </Slider>
     </div>
   );
