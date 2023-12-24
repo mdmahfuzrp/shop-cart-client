@@ -7,13 +7,30 @@ import { resetCart } from "../../redux/orebiSlice";
 import { emptyCart } from "../../assets/images/index";
 import ItemCard from "./ItemCard";
 import { AuthContext } from "../../Provider/AuthProvider";
+import axios from "axios";
 
 const Cart = () => {
-  const { cartItems } = useContext(AuthContext);
-  console.log(cartItems);
+  const { cartItems, user } = useContext(AuthContext);
+  // console.log(cartItems);
   const dispatch = useDispatch();
   const [totalAmt, setTotalAmt] = useState("");
   const [shippingCharge, setShippingCharge] = useState("");
+
+  const handleResetCartItems = async () => {
+    try {
+      const response = await axios.delete(
+        `https://shopcart-server-five.vercel.app/api/cart/${user?._id}`
+      );
+      console.log("reset all from cart:", response);
+      // if(response.status === 200){
+      //   toast.success(response.data.message);
+      // }
+    } catch (error) {
+      console.error("Failed to reset all item from cart:", error);
+    }
+  };
+
+
   useEffect(() => {
     let price = 0;
     cartItems.map((item) => {
@@ -53,7 +70,7 @@ const Cart = () => {
           </div>
 
           <button
-            onClick={() => dispatch(resetCart())}
+            onClick={handleResetCartItems}
             className="py-2 px-10 bg-red-500 text-white font-semibold uppercase mb-4 hover:bg-red-700 duration-300"
           >
             Reset cart

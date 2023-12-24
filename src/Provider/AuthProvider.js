@@ -32,7 +32,7 @@ const AuthProvider = ({ children }) => {
         const res = await fetch(
           `https://shopcart-server-five.vercel.app/api/user/${user._id}/cart-items`
         );
-        console.log(res);
+        // console.log(res);
         if (!res.ok) {
           throw new Error('Network response was not ok');
         }

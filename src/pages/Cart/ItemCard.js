@@ -5,7 +5,7 @@ import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
 
 const ItemCard = ({ item }) => {
-  console.log("my item:", item);
+  // console.log("my item:", item);
 
   const handleDeleteCartItem = async () => {
     try {
@@ -20,6 +20,8 @@ const ItemCard = ({ item }) => {
       console.error("Failed to remove item from cart:", error);
     }
   };
+
+
   return (
     <div className="w-full grid grid-cols-7 mb-4 border py-2">
       <Toaster toastOptions={{
