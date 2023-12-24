@@ -58,7 +58,7 @@ const SignUp = () => {
     setLoading(true);
     e.preventDefault();
     if (checked) {
-      const apiUrl = "http://localhost:5000/api/users";
+      const apiUrl = "https://shopcart-server-five.vercel.app/api/users";
       const postData = {
         fullName: clientName,
         email,

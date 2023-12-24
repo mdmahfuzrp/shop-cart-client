@@ -14,7 +14,7 @@ const AuthProvider = ({ children }) => {
   // Get All Product
   const getProductData = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/api/products");
+      const response = await axios.get("https://shopcart-server-five.vercel.app/api/products");
 
       if (response.status === 200) {
         setAllProduct(response?.data?.products);
@@ -30,7 +30,7 @@ const AuthProvider = ({ children }) => {
     async () => {
       try {
         const res = await fetch(
-          `http://localhost:5000/api/user/${user._id}/cart-items`
+          `https://shopcart-server-five.vercel.app/api/user/${user._id}/cart-items`
         );
         console.log(res);
         if (!res.ok) {

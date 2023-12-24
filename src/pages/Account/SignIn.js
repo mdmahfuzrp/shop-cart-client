@@ -34,7 +34,7 @@ const SignIn = () => {
     setLoading(true);
     e.preventDefault();
 
-    const apiUrl = "http://localhost:5000/api/auth";
+    const apiUrl = "https://shopcart-server-five.vercel.app/api/auth";
     const postData = {
       email,
       password,

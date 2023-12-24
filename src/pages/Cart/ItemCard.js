@@ -10,7 +10,7 @@ const ItemCard = ({ item }) => {
   const handleDeleteCartItem = async () => {
     try {
       const response = await axios.delete(
-        `http://localhost:5000/api/cart/${item?._id}`
+        `https://shopcart-server-five.vercel.app/api/cart/${item?._id}`
       );
       // console.log("Item removed from cart:", response);
       if(response.status === 200){

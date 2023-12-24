@@ -33,7 +33,7 @@ const ProductInfo = ({ productInfo }) => {
 
       console.log(addToCartData);
 
-      const apiUrl = "http://localhost:5000/api/add-to-cart";
+      const apiUrl = "https://shopcart-server-five.vercel.app/api/add-to-cart";
 
       axios
         .post(apiUrl, addToCartData)
