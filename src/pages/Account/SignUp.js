@@ -303,6 +303,7 @@ const SignUp = () => {
                     ? "bg-primeColor hover:bg-black hover:text-white cursor-pointer"
                     : "bg-gray-500 hover:bg-gray-500 hover:text-gray-200 cursor-not-allowed"
                 } w-full text-gray-200 text-base font-medium h-10 rounded-md hover:text-white duration-300`}
+                disabled={checked ? false : true}
               >
                 {
                   loading ? "Account Creating..." : "Create Account"

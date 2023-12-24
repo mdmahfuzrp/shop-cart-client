@@ -1,5 +1,5 @@
 # A PROJECT MADE IN ONLY 29 HOURS
-# [ShopCart Live Site](https://rtexus-frontend-task.vercel.app/)
+# [ShopCart Live Site](https://shop-cart-client.vercel.app/)
 
 ### All right reserved - [Md Mahfuz RP](https://mahfuzrp.netlify.app)
 
